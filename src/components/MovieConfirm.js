@@ -1,19 +1,24 @@
-import React from 'react'
-import styles from './styles'
+import React from "react";
+import styles from "./styles";
+import { connect } from "react-redux";
 
 const MovieConfirm = props => {
   const confirmMovie = () => {
-    props.history.push('/list')
-  }
+    props.history.push("/list");
+  };
+
+  console.log(props);
 
   return (
     <div style={styles.container}>
       <p style={styles.containerHeading}>CONFIRM YOUR DETAILS</p>
-      <p style={styles.confirmText}>{`TITLE - WESTENSCALE`}</p>
-      <img src={`URL`} alt="Movie Poster" />
+      <p
+        style={styles.confirmText}
+      >{`${props.title} - ${props.westenscale}`}</p>
+      <img src={props.poster} alt="Movie Poster" />
       <div>
         <button
-          onClick={() => props.history.push('/')}
+          onClick={() => props.history.push("/")}
           style={styles.formButton}
         >
           BACK
@@ -23,6 +28,12 @@ const MovieConfirm = props => {
         </button>
       </div>
     </div>
-  )
-}
-export default MovieConfirm
+  );
+};
+
+const mapStateToProps = state => {
+  const { title, poster, westenscale } = state;
+  return { title, poster, westenscale };
+};
+
+export default connect(mapStateToProps)(MovieConfirm);
